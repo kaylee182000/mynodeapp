@@ -7,7 +7,7 @@ const userController = {
       const saveUser = await newUser.save();
       res.status(200).json(saveUser);
     } catch (err) {
-      res.status(500).json(err)
+      res.status(500).json(err);
     }
   },
 
