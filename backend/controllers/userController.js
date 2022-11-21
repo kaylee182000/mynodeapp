@@ -20,10 +20,26 @@ const userController = {
     }
   },
 
-//   getUserById: async (req,res) => {
-//       console.log(req)
-//       console.log(res)
-//   }
+  getUserByKey: async (req, res) => {
+    try {
+      let user = await User.find({
+        $or: [{ name: { $regex: req.params.key } }],
+      });
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  //delete user err????
+  deleteUser: async (req, res) => {
+    try {
+      let userDeleted = await User.deleteOne({_id:req.params.id});
+      res.status(200).json(userDeleted);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = userController;
