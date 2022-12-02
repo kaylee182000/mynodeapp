@@ -5,7 +5,7 @@ import { User } from "../models/User";
 //Register User
 export const register = async (req, res) => {
   try {
-    //destucturing params forom the request.body
+    //destucturing params from the request.body
     const {
       firstName,
       lastName,
