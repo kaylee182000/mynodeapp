@@ -43,5 +43,5 @@ const UserSchema = new mongoose.Schema(
 );
 
 //Create schema first then pass it into model
-const User = mongoose.Model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
 export default User 

@@ -44,6 +44,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 //Routes
+// app.get("/", (req,res,next) => {
+//     res.json("hi")
+//     next()
+// })
 app.post("/auth/register", upload.single("picture"), register)
 
 //MONGO
