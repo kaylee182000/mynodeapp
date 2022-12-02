@@ -11,8 +11,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 //----------
-import {register} from "./controllers/auth.js"
-import authRoutes from "./routes/auth.js"
+import { verifyToken } from "./middleware/auth.js";
+import { register } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 
 //CONFIGURATIONS
 const __filename = fileURLToPath(import.meta.url);
@@ -31,7 +35,6 @@ app.use(cors());
 //set the directory of where we keep the assets in this case is public/assets
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-
 //File storage
 //see doc github repo of multer MUST WATCH!!!!!!!!
 const storage = multer.diskStorage({
@@ -45,10 +48,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 //Routes with file
-app.post("/auth/register", upload.single("picture"), register)
+app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
-//Routes
-app.use("/auth", authRoutes)
+// auth Routes
+app.use("/auth", authRoutes);
+
+//user routes
+app.use("/users", userRoutes);
+
+//post routes
+app.use("/posts", postRoutes);
 
 //MONGO
 const PORT = process.env.PORT || 6001;
